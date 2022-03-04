@@ -4,7 +4,6 @@ const router = express.Router();
 const Game = require('../models/game');
 
 router.post('/',function(req, res, next) {
-    console.log(req.body.gamers)
     const game = new Game({
         gamers: req.body.gamers
     });
