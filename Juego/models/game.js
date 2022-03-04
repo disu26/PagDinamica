@@ -1,33 +1,40 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { v4: uuidv4 } = require('uuid');
 
 const gameSchema = new Schema({
+
     gamers: [{
         id: {
             type: String,
-            trim: true,
-            required: [true, 'se requiere el id del jugador']
+            default: uuidv4(),
+            unique: true
         },
         name: {
             type: String,
             trim: true,
             required: [true, 'se necesita el nombre del jugador']
+        },
+        bet: {
+            type: Number,
+            default: 0
         }
     }],
     inProgress: {
         type:Boolean,
-        required: [true, 'se necesita el estado del juego'],
-        default: false
+        default: true
     },
-    winner: [{
+    winner: {
         id: {
-            type: String
+            type: String,
+            default: ''
         },
         name: {
             type: String,
             trim: true,
+            default: ''
         }
-    }],
+    },
     createdAt: {
         type : Date,
         required: true,
@@ -37,10 +44,6 @@ const gameSchema = new Schema({
         type : Date,
         required: true,
         default : Date.now()
-    },
-    deletedAt: {
-        type : Date,
-        required: false
     }
 }, {timestamps: true});
 
